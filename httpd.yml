@@ -1,0 +1,31 @@
+---
+- name: Install and deploy httpd
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Install httpd package
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Deploy example webpage
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+              <title>Welcome</title>
+          </head>
+          <body>
+              <h1>Welcome to Ansible Web Server</h1>
+              <h2>Deployed by Jagan using Ansible Playbook</h2>
+          </body>
+          </html>

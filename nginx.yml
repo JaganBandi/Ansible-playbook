@@ -1,0 +1,42 @@
+---
+- name: Install and configure nginx
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Install nginx package
+      yum:
+        name: nginx
+        state: present
+
+    - name: Change nginx port to 8080
+      replace:
+        path: /etc/nginx/nginx.conf
+        regexp: 'listen       80;'
+        replace: 'listen       8080;'
+
+    - name: Deploy application page
+      copy:
+        dest: /usr/share/nginx/html/index.html
+        content: |
+          <html>
+          <head>
+              <title>Nginx Page</title>
+          </head>
+          <body>
+              <h1>Welcome to Nginx Server</h1>
+              <h2>Deployed by Jagan using Ansible</h2>
+          </body>
+          </html>
+
+    - name: Start and enable nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted

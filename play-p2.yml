@@ -1,0 +1,9 @@
+---
+- name: Create file in /opt directory
+  hosts: testserver 
+  become: yes
+  tasks:
+    - name: Create sample file
+      file:
+        path: /opt/terraform
+        state: directory

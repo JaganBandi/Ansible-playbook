@@ -1,0 +1,13 @@
+---
+- name: Create a User
+  hosts: all
+  become: yes
+
+  tasks: 
+   - name: Create devops User
+     user:
+      name: devops
+      password: "dev@123"
+      state: present
+
+    

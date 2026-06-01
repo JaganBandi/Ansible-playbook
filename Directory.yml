@@ -1,0 +1,11 @@
+---
+- name: Create a Directory
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: Create Tree Directory
+      file:
+        path: /opt/Tree
+        state: directory
+

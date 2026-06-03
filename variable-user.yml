@@ -1,0 +1,14 @@
+---
+- name: Creating user with variable
+  hosts: testserver
+  become: yes
+
+  vars:
+    username: development
+
+
+  tasks:
+    - name: Create user
+      user: 
+        name: "{{username}}"
+        state: present  

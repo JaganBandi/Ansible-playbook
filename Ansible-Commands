@@ -1,0 +1,131 @@
+Ansible Commands
+***********************************
+1. Check the Ansible connectivity
+
+  command : ansible all -m ping
+
+   all --> all severs
+
+   ping --> tests SSH connection
+
+ Single server connection checking
+ 
+  command : ansible devopsserver -m ping
+
+2.Run linux commands
+
+ command : ansible all -m "uptime"
+
+ -->Check the uptime
+
+ command : ansible all -m "df -h"
+ 
+ -->Check the Disk Usage
+
+ command : amsible all -m "free -m"
+
+ --> Check memory usage in mega bytes
+ 
+ command : ansible all -m "free -h"
+ 
+ -->Check memory usage in gbs
+
+3.Execute the command using command module
+
+ command : ansible all -m command -a "hostname" 
+
+ --> excutes the linux commands
+ -->Does not suppourt pipes( | ) 
+ -->safer than shell module
+
+ 
+4.Execute commands using shell module
+
+ command : ansible all -m shell -a "ps -ef | grep tomcat"
+
+ supports:
+  -Pipes
+
+  -Redirection
+
+  -variables
+
+  -Multiple commands
+
+5. Gather server information
+
+ command : ansible all -m setup
+
+  -->Get the OS information
+
+5.Gather the specific information
+
+ command : ansible all -m setup -a "filter=ansible_distribution"
+
+6.Get the IP address
+
+ command : ansible all -m setup -a "filter=ansible_default_ipv4"
+
+7.Copy files to Remote Servers
+
+ command : ansible all -m copy -a "src=file-name dest=.tmp/file-name"
+
+ Here, src -->Source file
+       dest --> Destination path
+
+8.Create files
+
+ command : ansible all -m file -a "path=/tmp/file-name state=touch"
+
+9.Create Directories
+
+command : ansible all -m file -a "path=/tmp/directory-name state=directory"
+
+10.Delete files
+
+command : ansible all -m file -a "path=/tmp/file-name state=absent"
+
+11.Install packages
+
+command : ansible all -m yum -a "name=package-name state=present" --become
+
+example :ansible all -m yum -a "name=httpd state=present" --become
+
+12.Remove the packages
+
+ command : ansible all -m yum -a "name=package-name state=absent" --become
+
+13.Start the Service
+
+ command : ansible all -m service -a "name=package-name state=started" --become
+
+14:Stop the Service
+ 
+ command : ansible all -m service -a "name=package-name state=stopped" --become
+
+15.Restart the Service
+
+ command : ansible all -m service -a "name=package-name state=restarted" --become
+
+16.Enable Service at Boot
+
+ command : ansible all -m service -a "name=package-name enabled=yes" --become
+
+17.Create User
+
+ command : ansible all -m user -a "name=user-name password=set=password" --become
+
+ example : ansible all -m user -a "name=devops password=Admin@123" --become
+
+18.Delete the User
+ 
+ command : ansible all -m user -a "name=user-name state=absent" --become
+
+19.Change File Permissions
+
+ command : ansible all -m file -a "path=/tmp/file-name mode=0777"
+
+    
+
+
+

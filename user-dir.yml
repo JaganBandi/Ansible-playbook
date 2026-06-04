@@ -1,0 +1,22 @@
+---
+- name: User and Directory
+  hosts: all
+  become: yes
+
+  vars:
+    username: device
+    dirname: /opt/Project
+
+  tasks:
+    - name: Create user
+      user: 
+        name: "{{username}}"
+        state: present
+
+    - name: Create Directory
+      file:
+        path: "{{dirname}}"
+        state: directory
+        owner: "{{username}}"
+        group: "{{username}}"
+

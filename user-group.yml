@@ -1,0 +1,24 @@
+---
+- name: Create User,Group and File
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create group
+      group:
+        name: Docker
+        state: present
+
+    - name: Create user
+      user:
+        name: Function
+        state: present
+
+    - name: Ceate file
+      file:
+        path: /opt/playbooks.txt
+        state: touch
+        owner: Function
+        group: Docker
+        mode: '0755' 
+

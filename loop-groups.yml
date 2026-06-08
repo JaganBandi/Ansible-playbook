@@ -1,0 +1,16 @@
+---
+- name: Create multiple Groups
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Creating Groups
+      group:
+        name: "{{item}}"
+        state: present
+
+      loop:
+        - devolopers
+        - testing
+        - WebNetwork
+

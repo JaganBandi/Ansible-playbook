@@ -1,0 +1,17 @@
+---
+- name: Install multiple packages
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Packages
+      yum:
+        name: "{{item}}"
+        state: present
+
+ 
+      loop:
+        - git
+        - wget
+        - tar
+        - tree

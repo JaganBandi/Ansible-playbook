@@ -1,0 +1,17 @@
+---
+- name: Create files
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create Multiple files
+      file:
+        path: "/tmp/{{item}}"
+        state: touch
+
+      loop:
+        - compouse.txt
+        - docker.txt
+        - network.txt
+        - messages.txt
+

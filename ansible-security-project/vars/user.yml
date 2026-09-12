@@ -1,0 +1,7 @@
+---
+users:
+  - name: devuser1
+    group: devops
+
+  - name: devuser2
+    group: devops

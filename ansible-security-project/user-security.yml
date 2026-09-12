@@ -1,0 +1,30 @@
+---
+- name: Linux Users and Security Permissions
+  hosts: security
+  become: yes
+
+  vars_files:
+    - vars/user.yml
+
+  tasks:
+    - name: Create a devops Group
+      group:
+        name: devops
+        state: present
+
+    - name: Create Devops users
+      user:
+        name: "{{ item.name }}"
+        group: "{{ item.group }}"
+        state: present
+        create_home: yes
+      loop: "{{ users }}"
+
+    - name: Give sudo access to the devops group
+      copy:
+        content: "%devops ALL=(ALL) ALL\n"
+        dest: /etc/sudoers.d/devops
+        owner: root
+        group: root
+        mode: '0440'
+
